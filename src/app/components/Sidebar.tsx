@@ -1,0 +1,85 @@
+import { NavLink } from "react-router";
+import {
+  LayoutDashboard,
+  Users,
+  Database,
+  Clock,
+  FileText,
+  Package,
+  BarChart3,
+  Settings,
+  LogOut,
+  Coffee,
+} from "lucide-react";
+
+const menuItems = [
+  { path: "/", label: "Dashboard", icon: LayoutDashboard, exact: true },
+  { path: "/users", label: "User & Access Management", icon: Users },
+  { path: "/master-data/products", label: "Master Data Management", icon: Database },
+  { path: "/attendance", label: "Attendance Management", icon: Clock },
+  { path: "/daily-sales", label: "Daily Sales & Report Submission", icon: FileText },
+  { path: "/inventory", label: "Inventory & Stock Monitoring", icon: Package },
+  { path: "/reports", label: "Reporting & Analytics", icon: BarChart3 },
+  { path: "/settings", label: "Settings / Profile", icon: Settings },
+];
+
+export function Sidebar() {
+  return (
+    <aside className="w-64 bg-[#D4C4B0] h-screen flex flex-col shadow-lg">
+      {/* Logo & Brand */}
+      <div className="p-6 border-b border-[rgba(98,47,30,0.1)]">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-[#622F1E] flex items-center justify-center">
+            <Coffee className="w-6 h-6 text-white" />
+          </div>
+          <div>
+            <h1 className="text-xl text-[#622F1E]">AFIRM</h1>
+            <p className="text-xs text-[#6b6b6b]">Admin Dashboard</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation Menu */}
+      <nav className="flex-1 overflow-y-auto py-4">
+        {menuItems.map((item) => (
+          <NavLink
+            key={item.path}
+            to={item.path}
+            end={item.exact}
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-6 py-3 mx-2 rounded-xl transition-all ${
+                isActive
+                  ? "bg-[#622F1E] text-white shadow-md"
+                  : "text-[#2d2d2d] hover:bg-[rgba(98,47,30,0.1)]"
+              }`
+            }
+          >
+            {({ isActive }) => (
+              <>
+                <item.icon className="w-5 h-5 flex-shrink-0" />
+                <span className="text-sm">{item.label}</span>
+              </>
+            )}
+          </NavLink>
+        ))}
+      </nav>
+
+      {/* Admin Profile */}
+      <div className="p-4 border-t border-[rgba(98,47,30,0.1)]">
+        <div className="flex items-center gap-3 p-3 rounded-xl bg-white/50">
+          <div className="w-10 h-10 rounded-full bg-[#622F1E] flex items-center justify-center">
+            <span className="text-white text-sm">CM</span>
+          </div>
+          <div className="flex-1">
+            <p className="text-sm text-[#2d2d2d]">Core Manager</p>
+            <p className="text-xs text-[#6b6b6b]">admin@afirm.com</p>
+          </div>
+        </div>
+        <button className="mt-3 w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-[#622F1E] text-white hover:bg-[#4a2316] transition-colors">
+          <LogOut className="w-4 h-4" />
+          <span className="text-sm">Logout</span>
+        </button>
+      </div>
+    </aside>
+  );
+}
